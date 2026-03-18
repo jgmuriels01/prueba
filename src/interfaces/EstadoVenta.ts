@@ -1,1 +1,0 @@
-export type EstadoVenta = 'completada' | 'procesando' | 'pedida';

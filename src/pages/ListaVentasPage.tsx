@@ -1,8 +1,8 @@
-import { useAuthStore } from '../store/useAuthStore';
+import { useGlobalStore } from "../store/useGlobalStore";
 
 export default function ListaVentasPage() {
-    const ventas = useAuthStore((state) => state.ventas);
-    const clearVentas = useAuthStore((state) => state.clearVentas);
+    const ventas = useGlobalStore((state) => state.ventas);
+    const clearVentas = useGlobalStore((state) => state.clearVentas);
 
     const getStatusStyles = (tipo: string) => {
         switch (tipo) {

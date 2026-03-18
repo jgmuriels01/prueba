@@ -1,6 +1,9 @@
 import { useState, ChangeEvent } from 'react';
 import { useGlobalStore } from '../store/useGlobalStore';
 import { EstadoVenta } from '../interfaces/Venta';
+import Boton from '../components/Boton';
+import Selector from '../components/Selector';
+import { Opcion } from '../interfaces/Opcion';
 
 export default function AddVentaPage() {
     const addVenta = useGlobalStore((state) => state.addVenta);
@@ -10,10 +13,10 @@ export default function AddVentaPage() {
 
     const nameRegex = /^[a-zA-ZÀ-ÿ]+(\s[a-zA-ZÀ-ÿ]+)*$/;
 
-    const OPCIONES_TIPO_VENTA = [
-        { value: 'completada', label: 'Completada' },
-        { value: 'procesando', label: 'Procesando' },
-        { value: 'pedida', label: 'Pedida' }
+    const OPCIONES_VENTA: Opcion[] = [
+        { valor: 'completada', texto: 'Completada' },
+        { valor: 'procesando', texto: 'Procesando' },
+        { valor: 'pedida', texto: 'Pedida' }
     ];
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -68,45 +71,18 @@ export default function AddVentaPage() {
                 <fieldset>
                     <legend>Datos de la venta</legend>
 
-                    {/* Campo Nombre */}
-                    <label>Nombre:</label>
-                    <input
-                        id="nombre"
-                        type="text"
-                        name="nombre"
-                        placeholder="Ej: Camiseta"
-                        value={formData.nombre}
-                        onChange={handleChange}
-                        style={{ borderColor: errors.nombre ? 'red' : '' }}
+                    {/* Tu input de nombre normal... */}
+
+                    <Selector
+                        label="Estado de la Venta"
+                        valor={formData.tipo}
+                        opciones={OPCIONES_VENTA}
+                        onChange={(val) => setFormData({ ...formData, tipo: val })}
+                        placeholder="-- Selecciona --"
+                        error={errors.tipo}
                     />
-                    {errors.nombre && (
-                        <p style={{ color: 'red' }}>
-                            {errors.nombre}
-                        </p>
-                    )}
 
-                    {/* Campo Tipo con opción vacía */}
-                    <label >Estado de la Venta:</label>
-                    <select
-                        value={formData.tipo}
-                        onChange={(e) => setFormData({ ...formData, tipo: e.target.value })}
-                    >
-                        <option value="" disabled>-- Selecciona --</option>
-                        {OPCIONES_TIPO_VENTA.map((opcion) => (
-                            <option key={opcion.value} value={opcion.value}>
-                                {opcion.label}
-                            </option>
-                        ))}
-                    </select>
-                    {errors.tipo && (
-                        <p style={{ color: 'red' }}>
-                            {errors.tipo}
-                        </p>
-                    )}
-
-                    <button type="submit" style={{ width: '100%' }}>
-                        Añadir a la lista
-                    </button>
+                    <Boton texto="Añadir a la lista" type="submit" />
                 </fieldset>
             </form>
         </section>

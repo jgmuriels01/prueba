@@ -56,7 +56,7 @@ body {
 }
 
 #root {
-  width: 100vw;
+  /* width: 100vw; */
   max-width: 100vw !important;
   margin: 0 auto;
   text-align: center;
@@ -109,4 +109,8 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+input{
+  width: 100%;
 }

@@ -3,6 +3,9 @@ import AddVentaPage from "./pages/AddVentaPage";
 import ListaVentasPage from "./pages/ListaVentasPage";
 import Home from "./pages/Home";
 import { useSessionStore } from "./store/useSessionStore";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import ModificarPage from "./pages/ModificarPage";
 
 const MainLayout = () => {
   const isAuthenticated = useSessionStore((state) => state.isAuthenticated);
@@ -61,14 +64,14 @@ const router = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/add_venta", element: <AddVentaPage /> },
       { path: "/lista_ventas", element: <ListaVentasPage /> },
-      /* { path: "/login", element: <LoginPage /> },
-      { path: "/signup", element: <SignupPage /> }, */
+      { path: "/login", element: <LoginPage /> },
+      { path: "/signup", element: <SignupPage /> },
 
       // Rutas Protegidas (Solo logueados)
       {
         element: <ProtectedRoute />,
         children: [
-          /* { path: "/modificar", element: <ModificarPage /> }, */
+          { path: "/modificar", element: <ModificarPage /> },
         ],
       },
 
