@@ -1,8 +1,10 @@
 import { useState, ChangeEvent } from 'react';
-import { useAuthStore, Venta } from '../store/useAuthStore';
+import { useGlobalStore } from '../store/useGlobalStore';
+import { Venta } from '../interfaces/Venta';
+import { EstadoVenta } from '../interfaces/EstadoVenta';
 
 export default function AddVentaPage() {
-    const addVenta = useAuthStore((state) => state.addVenta);
+    const addVenta = useGlobalStore((state) => state.addVenta);
 
     const [formData, setFormData] = useState({ nombre: '', tipo: '' });
     const [errors, setErrors] = useState({ nombre: '', tipo: '' });
@@ -51,7 +53,7 @@ export default function AddVentaPage() {
         // Si todo está bien, guardamos (forzamos el tipo como Venta['tipo'])
         addVenta({
             nombre: nombreLimpio,
-            tipo: formData.tipo as Venta['tipo']
+            tipo: formData.tipo as EstadoVenta
         });
 
         // 3. Reset completo a vacío

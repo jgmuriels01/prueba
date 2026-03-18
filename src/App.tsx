@@ -2,11 +2,11 @@ import { createBrowserRouter, RouterProvider, Outlet, Navigate, Link } from "rea
 import AddVentaPage from "./pages/AddVentaPage";
 import ListaVentasPage from "./pages/ListaVentasPage";
 import Home from "./pages/Home";
-import { useAuthStore } from "./store/useAuthStore";
+import { useSessionStore } from "./store/useSessionStore";
 
 const MainLayout = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const logout = useAuthStore((state) => state.logout); // Opcional: para cerrar sesión
+  const isAuthenticated = useSessionStore((state) => state.isAuthenticated);
+  const logout = useSessionStore((state) => state.logout); // Opcional: para cerrar sesión
 
   return (
     <div style={{ margin: '0 auto', padding: '20px' }}>
@@ -42,7 +42,7 @@ const MainLayout = () => {
 };
 
 const ProtectedRoute = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useSessionStore((state) => state.isAuthenticated);
 
   // Si no está autenticado, mandarlo al login
   if (!isAuthenticated) {
@@ -61,14 +61,14 @@ const router = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/add_venta", element: <AddVentaPage /> },
       { path: "/lista_ventas", element: <ListaVentasPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/signup", element: <SignupPage /> },
+      /* { path: "/login", element: <LoginPage /> },
+      { path: "/signup", element: <SignupPage /> }, */
 
       // Rutas Protegidas (Solo logueados)
       {
         element: <ProtectedRoute />,
         children: [
-          { path: "/modificar", element: <ModificarPage /> },
+          /* { path: "/modificar", element: <ModificarPage /> }, */
         ],
       },
 
